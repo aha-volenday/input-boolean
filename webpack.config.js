@@ -54,10 +54,8 @@ module.exports = {
 	},
 	externals: {
 		'@volenday/input-date': 'commonjs2 @volenday/input-date',
-		'cleave.js': 'commonjs2 cleave.js',
 		antd: 'commonjs2 antd',
-		react: 'commonjs2 react',
-		unidecode: 'commonjs2 unidecode'
+		react: 'commonjs2 react'
 	},
 	plugins: [
 		new webpack.optimize.AggressiveMergingPlugin(),

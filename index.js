@@ -1,21 +1,21 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import InputDate from '@volenday/input-date';
+import { Button, Checkbox, Form, Icon, Popover, Switch } from 'antd';
 
-// ant design
-import { Button, Checkbox, Icon, Popover, Switch } from 'antd';
+import './styles.css';
 
 export default class InputBoolean extends Component {
 	state = { hasChange: false, isPopoverVisible: false };
 
 	renderCheckBox() {
-		const { disabled = false, id, onChange, value = false } = this.props;
+		const { disabled = false, action, id, onChange, value = false } = this.props;
 		return (
 			<Checkbox
 				checked={value}
 				name={id}
 				onChange={e => {
 					onChange(id, e.target.checked);
-					this.setState({ hasChange: true });
+					this.setState({ hasChange: action === 'add' ? false : true });
 				}}
 				disabled={disabled}
 			/>
@@ -23,14 +23,14 @@ export default class InputBoolean extends Component {
 	}
 
 	renderSwitch() {
-		const { disabled = false, id, onChange, value = false } = this.props;
+		const { disabled = false, action, id, onChange, value = false } = this.props;
 		return (
 			<Switch
 				checked={value}
 				name={id}
 				onChange={e => {
 					onChange(id, e);
-					this.setState({ hasChange: true });
+					this.setState({ hasChange: action === 'add' ? false : true });
 				}}
 				checkedChildren={<Icon type="check" />}
 				unCheckedChildren={<Icon type="close" />}
@@ -80,54 +80,26 @@ export default class InputBoolean extends Component {
 	render() {
 		const { hasChange } = this.state;
 		const {
-			id,
+			action,
 			label = '',
+			historyTrack = false,
 			required = false,
 			type = 'checkbox',
-			withLabel = false,
-			historyTrack = false
+			withLabel = false
 		} = this.props;
 
-		if (withLabel) {
-			if (historyTrack) {
-				return (
-					<div className="form-group">
-						<label for={id}>
-							{type == 'checkbox' && this.renderCheckBox()}
-							{type == 'switch' && this.renderSwitch()}
-							<span>&nbsp;{required ? `*${label}` : label}</span>
-						</label>
-						{hasChange && this.renderPopover()}
-					</div>
-				);
-			}
+		const formItemCommonProps = {
+			colon: false,
+			label: withLabel ? label : false,
+			required
+		};
 
-			return (
-				<div className="form-group">
-					<label for={id}>
-						{type == 'checkbox' && this.renderCheckBox()}
-						{type == 'switch' && this.renderSwitch()}
-						<span>&nbsp;{required ? `*${label}` : label}</span>
-					</label>
-				</div>
-			);
-		} else {
-			if (historyTrack) {
-				<div class="form-group">
-					{type == 'checkbox' && this.renderCheckBox()}
-					{type == 'switch' && this.renderSwitch()}
-					{hasChange && this.renderPopover()}
-				</div>;
-			}
-
-			return (
-				<Fragment>
-					{type == 'checkbox' && this.renderCheckBox()}
-					{type == 'switch' && this.renderSwitch()}
-				</Fragment>
-			);
-		}
-
-		return null;
+		return (
+			<Form.Item {...formItemCommonProps}>
+				{type == 'checkbox' && this.renderCheckBox()}
+				{type == 'switch' && this.renderSwitch()}
+				{historyTrack && hasChange && action !== 'add' && this.renderPopover()}
+			</Form.Item>
+		);
 	}
 }
