@@ -7,7 +7,7 @@ export default class InputBoolean extends Component {
 	renderCheckBox() {
 		const { disabled = false, id, onChange, value = false } = this.props;
 		return (
-			<Checkbox checked={value} name={id} onChange={e => onChange(id, e.target.checked)} disabled={disabled} />
+			<Checkbox checked={value} name={id} onChange={e => onChange(e, id, e.target.checked)} disabled={disabled} />
 		);
 	}
 
@@ -17,7 +17,7 @@ export default class InputBoolean extends Component {
 			<Switch
 				checked={value}
 				name={id}
-				onChange={e => onChange(id, e)}
+				onChange={e => onChange({ target: { name: id, value: e } }, id, e)}
 				checkedChildren={<Icon type="check" />}
 				unCheckedChildren={<Icon type="close" />}
 				disabled={disabled}
