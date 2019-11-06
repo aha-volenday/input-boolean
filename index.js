@@ -1,32 +1,26 @@
 import React, { Component } from 'react';
-import { Checkbox, Form, Icon, Switch } from 'antd';
+import { Form, Radio } from 'antd';
 
 import './styles.css';
 
 export default class InputBoolean extends Component {
-	renderCheckBox() {
-		const { disabled = false, id, onChange, value = false } = this.props;
-		return (
-			<Checkbox checked={value} name={id} onChange={e => onChange(e, id, e.target.checked)} disabled={disabled} />
-		);
-	}
+	renderRadio() {
+		const { disabled = false, id, onChange, value = null } = this.props;
 
-	renderSwitch() {
-		const { disabled = false, id, onChange, value = false } = this.props;
 		return (
-			<Switch
-				checked={value}
-				name={id}
-				onChange={e => onChange({ target: { name: id, value: e } }, id, e)}
-				checkedChildren={<Icon type="check" />}
-				unCheckedChildren={<Icon type="close" />}
-				disabled={disabled}
-			/>
+			<Radio.Group disabled={disabled} onChange={e => onChange(e, id, e.target.value)} value={value}>
+				<Radio value={true}>
+					<i class="fa fa-check-circle" style={{ color: '#55b65c' }} />
+				</Radio>
+				<Radio value={false}>
+					<i class="fa fa-times-circle" style={{ color: '#dc3545' }} />
+				</Radio>
+			</Radio.Group>
 		);
 	}
 
 	render() {
-		const { label = '', required = false, type = 'checkbox', withLabel = false } = this.props;
+		const { label = '', required = false, withLabel = false } = this.props;
 
 		const formItemCommonProps = {
 			colon: false,
@@ -34,11 +28,6 @@ export default class InputBoolean extends Component {
 			required
 		};
 
-		return (
-			<Form.Item {...formItemCommonProps}>
-				{type == 'checkbox' && this.renderCheckBox()}
-				{type == 'switch' && this.renderSwitch()}
-			</Form.Item>
-		);
+		return <Form.Item {...formItemCommonProps}>{this.renderRadio()}</Form.Item>;
 	}
 }
