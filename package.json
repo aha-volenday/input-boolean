@@ -1,6 +1,6 @@
 {
 	"name": "@volenday/input-boolean",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"main": "dist/index.min.js",
 	"repository": "https://jeromemiranda@bitbucket.org/volenday-dev/input-boolean",
 	"author": "Volenday <developers@volenday.com>",
@@ -17,7 +17,7 @@
 		"react-dom": "^16.11.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.7.0",
+		"@babel/core": "^7.7.2",
 		"@babel/plugin-proposal-class-properties": "^7.7.0",
 		"@babel/plugin-proposal-decorators": "^7.7.0",
 		"@babel/plugin-proposal-do-expressions": "~7.6.0",
@@ -37,10 +37,10 @@
 		"@babel/plugin-transform-async-to-generator": "^7.7.0",
 		"@babel/preset-env": "^7.7.1",
 		"@babel/preset-react": "^7.7.0",
-		"@babel/runtime": "^7.7.1",
+		"@babel/runtime": "^7.7.2",
 		"babel-loader": "^8.0.6",
 		"babel-plugin-react-html-attrs": "^2.1.0",
-		"core-js": "^3.3.6",
+		"core-js": "^3.4.0",
 		"css-loader": "~3.2.0",
 		"file-loader": "~4.2.0",
 		"node-sass": "^4.13.0",
