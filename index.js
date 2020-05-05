@@ -1,12 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Radio } from 'antd';
 
 import './styles.css';
 
-export default class InputBoolean extends Component {
-	renderRadio() {
-		const { disabled = false, id, onChange, value = null } = this.props;
-
+export default ({
+	disabled = false,
+	error = null,
+	extra = null,
+	id,
+	label = '',
+	onChange,
+	required = false,
+	value = null,
+	withLabel = false
+}) => {
+	const renderRadio = () => {
 		return (
 			<Radio.Group disabled={disabled} onChange={e => onChange(e, id, e.target.value)} value={value}>
 				<Radio value={true}>
@@ -17,25 +25,21 @@ export default class InputBoolean extends Component {
 				</Radio>
 			</Radio.Group>
 		);
-	}
+	};
 
-	render() {
-		const { error = null, extra = null, label = '', required = false, withLabel = false } = this.props;
+	const formItemCommonProps = {
+		colon: false,
+		help: error ? error : '',
+		label: withLabel ? (
+			<>
+				<div style={{ float: 'right' }}>{extra}</div> <span class="label">{label}</span>
+			</>
+		) : (
+			false
+		),
+		required,
+		validateStatus: error ? 'error' : 'success'
+	};
 
-		const formItemCommonProps = {
-			colon: false,
-			help: error ? error : '',
-			label: withLabel ? (
-				<>
-					<div style={{ float: 'right' }}>{extra}</div> <span class="label">{label}</span>
-				</>
-			) : (
-				false
-			),
-			required,
-			validateStatus: error ? 'error' : 'success'
-		};
-
-		return <Form.Item {...formItemCommonProps}>{this.renderRadio()}</Form.Item>;
-	}
-}
+	return <Form.Item {...formItemCommonProps}>{renderRadio()}</Form.Item>;
+};
