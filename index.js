@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, Radio } from 'antd';
+import { Form, Radio, Skeleton } from 'antd';
 
 import './styles.css';
+
+const browser = typeof process.browser !== 'undefined' ? process.browser : true;
 
 export default ({
 	disabled = false,
@@ -41,5 +43,9 @@ export default ({
 		validateStatus: error ? 'error' : 'success'
 	};
 
-	return <Form.Item {...formItemCommonProps}>{renderRadio()}</Form.Item>;
+	return (
+		<Form.Item {...formItemCommonProps}>
+			{browser ? renderRadio() : <Skeleton active paragraph={{ rows: 1, width: '100%' }} title={false} />}
+		</Form.Item>
+	);
 };
