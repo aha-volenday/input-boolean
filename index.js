@@ -18,7 +18,7 @@ export default ({
 }) => {
 	const renderRadio = () => {
 		return (
-			<Radio.Group disabled={disabled} onChange={e => onChange(e, id, e.target.value)} value={value}>
+			<Radio.Group disabled={disabled} name={id} onChange={e => onChange(e, id, e.target.value)} value={value}>
 				<Radio value={true}>
 					<i class="fa fa-check-circle" style={{ color: '#55b65c' }} />
 				</Radio>
