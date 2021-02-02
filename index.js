@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Radio, Skeleton } from 'antd';
+import { Col, Form, Radio, Row, Skeleton } from 'antd';
 
 import './styles.css';
 
@@ -19,12 +19,14 @@ export default ({
 	const renderRadio = () => {
 		return (
 			<Radio.Group disabled={disabled} name={id} onChange={e => onChange(e, id, e.target.value)} value={value}>
-				<Radio value={true}>
-					<i class="fa fa-check-circle" style={{ color: '#55b65c' }} />
-				</Radio>
-				<Radio value={false}>
-					<i class="fa fa-times-circle" style={{ color: '#dc3545' }} />
-				</Radio>
+				<Row gutter={[16, 16]}>
+					<Col span={24}>
+						<Radio value={true}>YES</Radio>
+					</Col>
+					<Col span={24}>
+						<Radio value={false}>NO</Radio>
+					</Col>
+				</Row>
 			</Radio.Group>
 		);
 	};
