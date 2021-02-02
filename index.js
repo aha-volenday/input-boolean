@@ -20,10 +20,12 @@ export default ({
 		return (
 			<Radio.Group disabled={disabled} name={id} onChange={e => onChange(e, id, e.target.value)} value={value}>
 				<Row gutter={[16, 16]}>
-					<Radio value={true}>YES</Radio>
-				</Row>
-				<Row gutter={[16, 16]}>
-					<Radio value={false}>NO</Radio>
+					<Col span={24}>
+						<Radio value={true}>YES</Radio>
+					</Col>
+					<Col span={24}>
+						<Radio value={false}>NO</Radio>
+					</Col>
 				</Row>
 			</Radio.Group>
 		);
