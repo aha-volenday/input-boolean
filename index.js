@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Form, Radio, Row, Skeleton } from 'antd';
+import { Col, Form, Radio, Row, Skeleton, Tooltip } from 'antd';
 
 const browser = typeof window !== 'undefined' ? true : false;
 
@@ -13,11 +13,12 @@ export default ({
 	label = '',
 	onChange,
 	required = false,
+	toolTip = {},
 	value = null,
 	withLabel = false
 }) => {
 	const renderRadio = () => {
-		return (
+		const radio = (
 			<Radio.Group disabled={disabled} name={id} onChange={e => onChange(e, id, e.target.value)} value={value}>
 				<Row gutter={[16, 16]}>
 					<Col span={24}>
@@ -29,6 +30,8 @@ export default ({
 				</Row>
 			</Radio.Group>
 		);
+
+		return Object.keys(toolTip).length === 0 ? radio : <Tooltip {...toolTip}>{radio}</Tooltip>;
 	};
 
 	const formItemCommonProps = {
