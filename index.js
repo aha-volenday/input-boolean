@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Form, Radio, Row, Skeleton, Tooltip } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const browser = typeof window !== 'undefined' ? true : false;
 
@@ -13,12 +14,12 @@ export default ({
 	label = '',
 	onChange,
 	required = false,
-	toolTip = {},
+	toolTip = '',
 	value = null,
 	withLabel = false
 }) => {
 	const renderRadio = () => {
-		const radio = (
+		return (
 			<Radio.Group disabled={disabled} name={id} onChange={e => onChange(e, id, e.target.value)} value={value}>
 				<Row gutter={[16, 16]}>
 					<Col span={24}>
@@ -30,8 +31,6 @@ export default ({
 				</Row>
 			</Radio.Group>
 		);
-
-		return Object.keys(toolTip).length === 0 ? radio : <Tooltip {...toolTip}>{radio}</Tooltip>;
 	};
 
 	const formItemCommonProps = {
@@ -39,7 +38,15 @@ export default ({
 		help: error ? error : '',
 		label: withLabel ? (
 			<>
-				<div style={{ float: 'right' }}>{extra}</div> <span class="label">{label}</span>
+				<div style={{ float: 'right' }}>{extra}</div>{' '}
+				<span class="label">
+					{label}{' '}
+					{toolTip && (
+						<Tooltip title={toolTip}>
+							<QuestionCircleOutlined />
+						</Tooltip>
+					)}
+				</span>
 			</>
 		) : (
 			false
